@@ -28,14 +28,14 @@ use App\Http\Controllers\MauController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('home',[MainController::class,'home']);
 //Đăng nhập
-Route::get('Login',[LoginController::class,'index'])->name('Login');
+Route::get('/',[LoginController::class,'index'])->name('Login');
 Route::post('Login/store',[LoginController::class,'store']);
 
 //Admin
 Route::middleware(['auth'])->group(function () {
-    Route::get('Main',[MainController::class,'index'])->name('admin');
+    Route::get('Main',[MainController::class,'home'])->name('admin');
     Route::get('Main/mains',[MainController::class,'index']);
 
 });
