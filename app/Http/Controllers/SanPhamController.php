@@ -12,7 +12,7 @@ use App\Models\Mau;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Http\UploadedFile;
 use App\Http\Requests\StoreSanPhamRequest;
 use App\Http\Requests\UpdateSanPhamRequest;
 
@@ -22,11 +22,11 @@ class SanPhamController extends Controller
     protected function FixImage(SanPham $SanPham)   
     {
         if (Storage::disk('public')->exists($SanPham->HinhAnh)) {
-            $SanPham->HinhAnh= Storage::url($SanPham->HinhAnh);
+            $SanPham->HinhAnh= Storage::url('/'.$SanPham->HinhAnh);
 
         }
         else{
-            $SanPham->HinhAnh='/assets/images/faces/face26.jpg';
+            $SanPham->HinhAnh='/assets/images/faces/face20.jpg';
 
             // $SanPham->HinhAnh=$SanPham->HinhAnh;
 
@@ -93,11 +93,13 @@ class SanPhamController extends Controller
     public function store(Request $request)
     {   
         $SanPham = new SanPham;
+        $chitiet = new CtSanPham;
         $tt=1;
         // dd($SanPham);
         if($request->hasFile('hinhanh'))
         {
-            $SanPham->HinhAnh=$request->file('hinhanh')->store('images/faces','public');
+            $SanPham->HinhAnh=$request->file('hinhanh')->store('/assets/images/faces','public');
+            
         }
         $this->FixImage($SanPham);
      
@@ -105,17 +107,22 @@ class SanPhamController extends Controller
         // 
         $SanPham->fill([
             'TenSanPham'=>$request->input('tensp'),
-            'Gia'=>$request->input('gia'),
-            'Size'=>$request->input('size'),
-            'Mau'=>$request->input('mau'),
+            'Gia'=>$request->input('gia'),    
             'SoLuong'=>$request->input('soluong'),
             'IdLoaiSanPham'=>$request->input('idloaisanpham'),
             'IdNhaCung'=>$request->input('idnhacungcap'),
             'Mota'=>$request->input('mota'),
-            'TrangThai'=>$tt,
-           
+            'TrangThai'=>$tt,           
         ]);
         $SanPham->save();
+        $chitiet->fill([
+            'IdSanPham'=>$SanPham->id,
+            'IdSize'=>$request->input('size'),
+            'IdMau'=>$request->input('mau'),
+        ]);
+
+        
+        $chitiet->save();
         return Redirect::route('SanPham.show',['SanPham'=>$SanPham]);
     }
 
@@ -132,7 +139,9 @@ class SanPhamController extends Controller
         $ctSanPham = SanPham::where('id','=',$SanPham->id)->get();  
         $listLoai=LoaiSanPham::all();  
         $listNhaCungCap=NhaCungCap::all();
-        $ctSP=CtSanPham::where('idSanPham','=',$SanPham->id)->get(); 
+        $ctSP=CtSanPham::where('IdSanPham','=',$SanPham->id)->get(); 
+        $ctSP2=CtSanPham::where('IdSanPham','=',$SanPham->id)->get(); 
+
         $Mau=Mau::all();
         $Size=Size::all();
         
@@ -142,6 +151,7 @@ class SanPhamController extends Controller
             'listLoai'=>$listLoai,
             'listNhaCungCap'=>$listNhaCungCap,
             'ctSP'=>$ctSP,
+            'ctSP2'=>$ctSP2,
             'Mau'=>$Mau,
             'Size'=>$Size,
         ]);
@@ -158,16 +168,21 @@ class SanPhamController extends Controller
         //
         // dd($sanPham);
         $this->FixImage($SanPham);
+        $listMau=Mau::all();
+        $listSize=Size::all();
         $listLoai=LoaiSanPham::all();
         $listNhaCungCap=NhaCungCap::all();
         $suaSanPham = SanPham::where('id','=',$SanPham->id)->get();
-
+        $ctSP=CtSanPham::where('idSanPham','=',$SanPham->id)->get(); 
         // $suaSanPham = $sanPham;
         
         return view('Admin.SanPham_edit',[
             'suaSanPham'=>$suaSanPham,
+            'ctSP'=>$ctSP,
             'listLoai'=>$listLoai,
             'listNhaCungCap'=>$listNhaCungCap,
+            'listSize'=>$listSize,
+            'listMau'=>$listMau
         ]);
     }
 
@@ -180,15 +195,11 @@ class SanPhamController extends Controller
      */
     public function update(Request $request, SanPham $SanPham)
     {
-        //
-        // dd($SanPham);
-        
         if($request->hasFile('hinhanh'))
         {
-            $SanPham->HinhAnh=$request->file('hinhanh')->store('images/faces','public');
+            $SanPham->HinhAnh=$request->file('hinhanh')->store('/assets/images/faces','public');
+            // 
         }
-        // $this->FixImage($SanPham);
-
         if (Storage::disk('public')->exists($SanPham->HinhAnh)) {
             $SanPham->HinhAnh= Storage::url($SanPham->HinhAnh);
 
@@ -202,10 +213,9 @@ class SanPhamController extends Controller
         $SanPham->fill([
             'TenSanPham'=>$request->input('tensp'),
             'Gia'=>$request->input('gia'),
-            'Size'=>$request->input('size'),
-            'Mau'=>$request->input('mau'),
+            
             'SoLuong'=>$request->input('soluong'),
-            'IdLoaiSanPham'=>$request->input('idloaisanpham'),
+            // 'IdLoaiSanPham'=>$request->input('idloaisanpham'),
             'IdNhaCung'=>$request->input('idnhacungcap'),
             'Mota'=>$request->input('mota'),
             'TrangThai'=>$request->input('TrangThai'),
@@ -214,6 +224,10 @@ class SanPhamController extends Controller
             // 'HinhAnh'=>$request->input('hinhanh'),
         ]);
         $SanPham->save();
+        
+
+        
+      
         return Redirect::route('SanPham.show',['SanPham'=>$SanPham]);
     }
 

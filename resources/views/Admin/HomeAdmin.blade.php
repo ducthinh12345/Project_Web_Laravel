@@ -20,7 +20,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 1; $i <= 5; $i++)
+                                @for ($i = 1; $i <= 1; $i++)
                                     <tr>
                                         <td>
                                             <a
@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 1; $i <= 5; $i++)
+                                @for ($i = 1; $i <= 1; $i++)
                                     <tr>
                                         <td>
                                             <a href="{{ route('LoaiSanPham.show', ['LoaiSanPham' => $listSP[$i - 1]]) }}">
@@ -96,7 +96,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for ($i = 1; $i <= 2; $i++)
+                                @for ($i = 1; $i <= 1; $i++)
                                     <tr>
                                         <td>
                                             <a href="{{ route('NhaCungCap.show', ['NhaCungCap' => $listNhaCungCap[$i - 1]]) }}">

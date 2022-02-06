@@ -95,7 +95,7 @@
                 </li>
                 {{-- Link thao tác của trang chủ --}}
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="http://127.0.0.1:8000/">
+                    <a class="nav-link" href="http://127.0.0.1:8000/home">
                         <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>

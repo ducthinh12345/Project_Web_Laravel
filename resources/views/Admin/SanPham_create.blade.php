@@ -39,7 +39,7 @@
         <label for="">Giá: </label>
         <input class="form-control" style="color: rgb(0, 255, 0)" name="gia" value=""> <br>
 
-        <form action="{{ route('CtSanPham.store') }}">
+        
             <label for="">Màu</label>
         <select class="form-control" style="color: rgb(0, 255, 0)" name="mau">
             <option value="">----Màu----</option>
@@ -55,7 +55,7 @@
                 <option value="{{ $size->id }}">{{ $size->TenSize }}</option>
             @endforeach
         </select><br>
-        </form>
+        
 
         <label for="">Số lượng: </label>
         <input name="soluong" style="color: rgb(0, 255, 0)" class="form-control" value=""> <br>
