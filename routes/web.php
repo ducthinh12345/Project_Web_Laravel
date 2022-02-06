@@ -33,7 +33,6 @@ Route::post('Login/store',[LoginController::class,'store']);
 Route::middleware(['auth'])->group(function () {
     Route::get('Main',[MainController::class,'index'])->name('admin');
     Route::get('Main/mains',[MainController::class,'index']);
-
 });
 
 //TaiKhoan

@@ -97,20 +97,18 @@ class HoaDonController extends Controller
      */
     public function show(HoaDon $HoaDon)
     {
-        $HoaDon = HoaDon::where('id','=',$HoaDon->id)->get();  
+        $lstHoaDon = HoaDon::where('id','=',$HoaDon->id)->get();  
         $listTrangThai=TrangThai::all();
-        $user=User::all();
+        $ctHoaDon = CtHoaDon::where('IdHoaDon','=',$HoaDon->id)->get();
         $mgg=MaGiamGia::all();
         $sp=SanPham::all();
-        $listCT=CtHoaDon::all(); 
         
         return view('Admin.HoaDon_show',[
-            'HoaDon'=>$HoaDon,
+            'lstHoaDon'=>$lstHoaDon,
             'listTrangThai'=>$listTrangThai,
-            'user'=>$user,
+            'ctHoaDon'=>$ctHoaDon,
             'mgg'=>$mgg,
             'sp'=>$sp,
-            'listCT'=>$listCT,
         ]);
     }
 
@@ -120,9 +118,9 @@ class HoaDonController extends Controller
      * @param  \App\Models\HoaDon  $hoaDon
      * @return \Illuminate\Http\Response
      */
-    public function edit(HoaDon $hoaDon)
+    public function edit(HoaDon $HoaDon)
     {
-        $suaHoaDon = HoaDon::where('id','=',$hoaDon->id)->get();
+        $suaHoaDon = HoaDon::where('id','=',$HoaDon->id)->get();
         $listTrangThai = TrangThai::all();
         // $suaSanPham = $sanPham;
         
@@ -149,7 +147,7 @@ class HoaDonController extends Controller
             'SDTGiaoHang'=>$request->input('sdt'),
             'IdMaGiamGia'=>$request->input('magiamgia'),
             'TongTien'=>$request->input('tongtien'),
-            'TrangThai'=>$request->input('TrangThai'),
+            'IDTrangThai'=>$request->input('TrangThai'),
         ]);
         $HoaDon->save();
         return Redirect::route('HoaDon.show',['HoaDon'=>$HoaDon]);

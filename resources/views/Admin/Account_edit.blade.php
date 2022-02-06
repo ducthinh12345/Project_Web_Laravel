@@ -36,7 +36,8 @@
                     @if ($acc->GioiTinh=='Nam')
                      checked
                     @endif
-                    > Nam </label>
+                    > Nam 
+                  </label>
                 </div>
               </div>
               <div class="col-sm-5">
