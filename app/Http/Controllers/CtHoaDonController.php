@@ -24,12 +24,12 @@ class CTHoaDonController extends Controller
     public function index()
     {
 
-    //     $CTHoaDon = CTHoaDon::all();
-    //     $hoaDon= HoaDon::all();
-    //     $sanpham = SanPham::all();
-    //     return view('Admin.CTHoaDon_index',['listHoaDon'=>$hoaDon,
-    //     'CTHoaDon'=>$CTHoaDon, 'sanPham'=>$sanpham
-    // ]);
+        $CTHoaDon = CTHoaDon::all();
+        $hoaDon= HoaDon::all();
+        $sanpham = SanPham::all();
+        return view('Admin.CTHoaDon_index',['listHoaDon'=>$hoaDon,
+        'CTHoaDon'=>$CTHoaDon, 'sanPham'=>$sanpham
+    ]);
     }
 
     /**
@@ -39,8 +39,8 @@ class CTHoaDonController extends Controller
      */
     public function create()
     {
-        // $cTHoaDon=CTHoaDon::all();
-        // return view('Admin.CTHoaDon_index',['listCTHoaDon'=>$cTHoaDon]);
+        $cTHoaDon=CTHoaDon::all();
+        return view('Admin.CTHoaDon_index',['listCTHoaDon'=>$cTHoaDon]);
     }
 
     /**
@@ -51,16 +51,16 @@ class CTHoaDonController extends Controller
      */
     public function store(StoreCTHoaDonRequest $request)
     {
-        // $ctHoaDon=CTHoaDon::all();
-        // $ctHoaDon->fill([
-        //     'IdHoaDon'=>$request->input('mahoadon'),
-        //     'IdSanPham'=>$request->input('masanpham'),
-        //     'SoLuong'=>$request->input('soluong'),
-        //     'DonGia'=>$request->input('dongia'),
+        $ctHoaDon=CTHoaDon::all();
+        $ctHoaDon->fill([
+            'IdHoaDon'=>$request->input('mahoadon'),
+            'IdSanPham'=>$request->input('masanpham'),
+            'SoLuong'=>$request->input('soluong'),
+            'DonGia'=>$request->input('dongia'),
            
-        // ]);
-        // $ctHoaDon->save();
-        // return Redirect::route('CTHoaDon.show',['CTHoaDon'=>$ctHoaDon]);
+        ]);
+        $ctHoaDon->save();
+        return Redirect::route('CTHoaDon.show',['CTHoaDon'=>$ctHoaDon]);
     }
 
     /**
@@ -72,18 +72,18 @@ class CTHoaDonController extends Controller
     public function show(CTHoaDon $CTHoaDon)
     {
  
-        // $hoaDon = HoaDon::all();
-        // $listHoaDon = CTHoaDon::where('IdHoaDon','=',$CTHoaDon->id)->get();  
+        $hoaDon = HoaDon::all();
+        $listHoaDon = CTHoaDon::where('IdHoaDon','=',$CTHoaDon->id)->get();  
 
-        // // $listSanPham = SanPham::where('IdLoaiSanPham','=',$loaiSanPham->id)->get();
-        // // $listTrangThai=TrangThai::all();
-        // // $cTHoaDon = CTHoaDon::all();
-        // // dd($CTHoaDon);
-        // return view('Admin.CTHoaDon_show',[
-        //     // 'HoaDon'=>$hoaDon,
-        //     // 'listTrangThai'=>$listTrangThai,
-        //     'CTHoaDon'=>$listHoaDon,
-        // ]);
+        // $listSanPham = SanPham::where('IdLoaiSanPham','=',$loaiSanPham->id)->get();
+        // $listTrangThai=TrangThai::all();
+        // $cTHoaDon = CTHoaDon::all();
+        // dd($CTHoaDon);
+        return view('Admin.CTHoaDon_show',[
+            // 'HoaDon'=>$hoaDon,
+            // 'listTrangThai'=>$listTrangThai,
+            'CTHoaDon'=>$listHoaDon,
+        ]);
     }
 
     /**
