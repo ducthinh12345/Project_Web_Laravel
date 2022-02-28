@@ -212,8 +212,7 @@ class SanPhamController extends Controller
         // $SanPham = SanPham::find($request->id);
         $SanPham->fill([
             'TenSanPham'=>$request->input('tensp'),
-            'Gia'=>$request->input('gia'),
-            
+            'Gia'=>$request->input('gia'),            
             'SoLuong'=>$request->input('soluong'),
             // 'IdLoaiSanPham'=>$request->input('idloaisanpham'),
             'IdNhaCung'=>$request->input('idnhacungcap'),
@@ -224,10 +223,6 @@ class SanPhamController extends Controller
             // 'HinhAnh'=>$request->input('hinhanh'),
         ]);
         $SanPham->save();
-        
-
-        
-      
         return Redirect::route('SanPham.show',['SanPham'=>$SanPham]);
     }
 
@@ -239,11 +234,12 @@ class SanPhamController extends Controller
      */
     public function destroy(Request $request,SanPham $SanPham)
     {
-        // dd($SanPham);
+        dd($SanPham);
         $SanPham->fill([
             'TrangThai'=>$request->input('TrangThai'),
         ]);
         $SanPham->save();
          return Redirect::route('SanPham.index');
     }
+   
 }

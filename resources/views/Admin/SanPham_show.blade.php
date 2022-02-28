@@ -68,7 +68,7 @@
                 @csrf
                 @method('DELETE')
 
-                <input type="hidden" name="TrangThai" value="0">
+                <input  type="hidden" name="TrangThai" value="0">
                 <input class="btn btn-light btn-fw" type="submit" value="Xóa">
             </form>
     @endforeach

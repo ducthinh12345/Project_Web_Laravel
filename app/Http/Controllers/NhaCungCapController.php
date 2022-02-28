@@ -120,7 +120,7 @@ class NhaCungCapController extends Controller
      */
     public function destroy(Request $request,NhaCungCap $NhaCungCap)
     {
-        // dd($SanPham);
+        // dd($NhaCungCap);
         $NhaCungCap->fill([
             'TrangThai'=>$request->input('TrangThai'),
         ]);

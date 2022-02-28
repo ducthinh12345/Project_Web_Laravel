@@ -48,6 +48,8 @@ route::get('ThemLoaiSanPham',[LoaiSanPhamController::class,'themLoaiSanPham']);
 //SanPham
 Route::resource('SanPham', SanPhamController::class);
 route::get('ThemSanPham',[SanPhamController::class,'themSanPham']);
+// route::post('xoasp',[SanPhamController::class,'xoa']);
+Route::get('SanPham/{id}/xoasp',[SanPhamController::class,'xoa']);
 Route::resource('CtSanPham', CtSanPhamController::class);
 //NhaCungCap
 Route::resource('NhaCungCap', NhaCungCapController::class);
